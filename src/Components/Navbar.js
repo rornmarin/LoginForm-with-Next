@@ -1,10 +1,16 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UseSession } from "@/store/UseSession";
 
 export const Navbar = () => {
   const pathname = usePathname();
   console.log("path", pathname);
+  const { session, setSession } = UseSession();
+  const isLogin = session.email != undefined;
+
+  console.log('111111111111', session.email)
+
   return (
     <div>
       <nav className="bg-gray-300 border-gray-200 dark:bg-gray-900">
@@ -13,11 +19,11 @@ export const Navbar = () => {
             href="https://flowbite.com/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            {/* <img
-              src="https://flowbite.com/docs/images/logo.svg"
+            <img
+              src="https://media.licdn.com/dms/image/D560BAQGLLrMwXjr8nw/company-logo_200_200/0/1665290099074?e=1714003200&v=beta&t=5WxgEvmuygizi9lNytP1NEevPFZJ6d0G2NnnrkpgJIE"
               className="h-8"
               alt="Flowbite Logo"
-            /> */}
+            />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               AASA
             </span>
@@ -50,7 +56,7 @@ export const Navbar = () => {
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0  dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
                 <Link
-                  href="#"
+                  href="/home"
                   className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
                   aria-current="page"
                 >
@@ -87,14 +93,15 @@ export const Navbar = () => {
                     href="/login"
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
-                    Log In
+                    {isLogin ? "log in" : "log in"}
                   </Link>
                 ) : (
                   <Link
-                    href="/register"
+                  onClick={isLogin ? () => setSession({}) : ""}
+                    href={isLogin ? "/login" : "/register"}
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >
-                    Register
+                    {isLogin ? "log out" : "register"}
                   </Link>
                 )}
               </li>

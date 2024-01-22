@@ -5,6 +5,7 @@ import MyInput from "@/Components/MyInput";
 import { Button } from "@/Components/Button";
 import * as yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const SignupSchema = yup.object().shape({
   name: yup
@@ -38,6 +39,13 @@ export const Register = () => {
     setVisibleCom ((prev) => !prev);
   } 
 
+  const router = useRouter() ;
+
+  const handleRegister = (values) => {
+    router.push("/home")
+
+  }
+
   return (
     <div>
       <Formik
@@ -52,9 +60,11 @@ export const Register = () => {
 
         validationSchema={SignupSchema}
         onSubmit={(values ,{resetForm}) => {
-          alert(
-            `Name: ${values.name}\nGender: ${values.gender}\nPassword: ${values.password}\nEmail :${values.email}\nPhone:${values.phone} \nComfirmationPassword: ${values.comfirmPassword}`,
-          );
+
+          handleRegister(values);
+          // alert(
+          //   `Name: ${values.name}\nGender: ${values.gender}\nPassword: ${values.password}\nEmail :${values.email}\nPhone:${values.phone} \nComfirmationPassword: ${values.comfirmPassword}`,
+          // );
 
           resetForm();
 
@@ -108,7 +118,11 @@ export const Register = () => {
                     isPasswordCom && (
                       <div className="icon" onClick={onClickToggle}
                       style={{
-                        cursor: 'pointer',
+                        position: "absolute",
+                        right: "2rem", // Use a responsive value
+                        top: "21.5%", // Center vertically
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
                       }}>
                         {visible ? <FaEye /> : <FaEyeSlash />}</div>
                     )
@@ -144,7 +158,11 @@ export const Register = () => {
                     isPassword && (
                       <div className="icon" onClick={onClickToggleCom}
                       style={{
-                        cursor: 'pointer',
+                        position: "absolute",
+                        right: "2rem", 
+                        top: "31.5%", 
+                        transform: "translateY(-50%)",
+                        cursor: "pointer",
                       }}
                       >
                         {visibleCom ? <FaEye /> : <FaEyeSlash />}</div>

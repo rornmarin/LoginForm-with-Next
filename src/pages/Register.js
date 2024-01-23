@@ -47,7 +47,7 @@ export const Register = () => {
   }
 
   return (
-    <div>
+    <div className="flex justify-center mx-auto">
       <Formik
         initialValues={{
           name: "",
@@ -70,10 +70,10 @@ export const Register = () => {
 
         }}
       >
-        <Form className="p-5">
+        <Form className="p-5 w-96 ">
           <div>
-            <div className="text-xl text-center font-bold p-5">Register</div>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="text-xl text-center font-bold p-5 ">Register</div>
+            <div className="grid grid-cols-1 gap-4 flex justify-center">
               <Field
                 component={MyInput}
                 label="Name"
@@ -119,8 +119,8 @@ export const Register = () => {
                       <div className="icon" onClick={onClickToggle}
                       style={{
                         position: "absolute",
-                        right: "2rem", // Use a responsive value
-                        top: "21.5%", // Center vertically
+                        right: "48rem", // Use a responsive value
+                        top: "40%", // Center vertically
                         transform: "translateY(-50%)",
                         cursor: "pointer",
                       }}>
@@ -159,8 +159,8 @@ export const Register = () => {
                       <div className="icon" onClick={onClickToggleCom}
                       style={{
                         position: "absolute",
-                        right: "2rem", 
-                        top: "31.5%", 
+                        right: "48rem", 
+                        top: "68%", 
                         transform: "translateY(-50%)",
                         cursor: "pointer",
                       }}

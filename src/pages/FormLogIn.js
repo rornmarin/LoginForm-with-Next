@@ -7,6 +7,9 @@ import * as yup from "yup";
 import { FaEyeSlash, FaEye } from 'react-icons/fa'; 
 import { UseSession } from "@/store/UseSession";
 import { useRouter } from "next/navigation";
+import { setCookie } from "nookies";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const SignupSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("please input email"),
@@ -23,15 +26,37 @@ const FormLogIn = () => {
     setVisible((prev) => !prev);
   };
 
-  const handleLogin = (values) => {
-    if(
-      values.email === "marin@gmail.com" &&
-      values.password === "123456"
-    ){
+  const handleLogin = async (values) => {
+    // if(
+    //   values.email === "marin@gmail.com" &&
+    //   values.password === "123456"
+    // ){
+    //   setSession({email: values.email});
+    //   Cookies.set('testing', 
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ0ZXN0MTIzNDU2NzhAZ21haWwuY29tIiwiaWF0IjoxNzA2MDA0MTU1LCJleHAiOjE3MDYxNzY5NTV9.L2WtERUXeRLBwE99fNU_5KwB2EuBYLILwXPaRpfgKKs',
+    //    { expires: 30, path: '/' });
+    //   // setCookie(null , "testing" , "qwertyuiop")
+    //   router.push("/home");
+    // }else{
+    //   alert ("Invalid")
+    // }
+    const login = await axios.post('https://courses-web-service-api-v1.onrender.com/api/v1/auth/login',{
+      email:values.email,
+      password:values.password
+    })
+
+    if(login){
+      
       setSession({email: values.email});
+      const token = login.data.token
+
+      Cookies.set('AuthToken',token)
+
       router.push("/home");
+
     }else{
-      alert ("Invalid")
+
+      alert('Fail')
     }
   }
 
@@ -64,7 +89,7 @@ const FormLogIn = () => {
                 name="password"
                 placeholder="password"
                 showError={true}
-                className="flex-grow relative" // Set relative positioning for the parent container
+                className="flex-grow relative" 
               />
               {isPassword && (
                 <div
@@ -72,8 +97,8 @@ const FormLogIn = () => {
                   onClick={onClickToggle}
                   style={{
                     position: "absolute",
-                    right: "2rem", // Use a responsive value
-                    top: "66%", // Center vertically
+                    right: "2rem", 
+                    top: "66%",
                     transform: "translateY(-50%)",
                     cursor: "pointer",
                   }}

@@ -2,6 +2,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UseSession } from "@/store/UseSession";
+// import { destroyCookie } from "nookies";
+import Cookies from "js-cookie";
+
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -97,7 +100,9 @@ export const Navbar = () => {
                   </Link>
                 ) : (
                   <Link
-                  onClick={isLogin ? () => setSession({}) : ""}
+                  onClick={isLogin ? () => {
+                    Cookies.remove('AuthToken');
+                  } : ""}
                     href={isLogin ? "/login" : "/register"}
                     className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                   >

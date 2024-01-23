@@ -83,7 +83,7 @@ export const Register = () => {
                 showError={true}
               />
 
-              <div className="w-full">
+              <div className="w-full ">
                 <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                   Gender
                 </label>
@@ -91,7 +91,7 @@ export const Register = () => {
                   <Field
                     as="select"
                     name="gender"
-                    className="text-black w-full"
+                    className="text-black w-full rounded-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm "
                   >
                     <option value="">Select Gender</option>
                     <option value="Female">Female</option>
